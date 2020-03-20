@@ -1,1 +1,13 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+#pnLeft {
+	-fx-background-color: #16161B;
+}
+
+#pnRight {
+	-fx-background-color: #19191F;
+}
+
+#progressBar {
+	-fx-accent: green;
+}
