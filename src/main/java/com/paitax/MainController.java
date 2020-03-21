@@ -61,6 +61,18 @@ public class MainController {
     private Label lblProgress;
 
     @FXML
+    private Label lblRead;
+
+    @FXML
+    private Label lblConvert;
+
+    @FXML
+    private Label lblSave;
+    
+    @FXML
+    private Label lblTotal;
+
+    @FXML
     void initialize() {
     	
     	btnCSVFile.setOnMouseClicked((MouseEvent e)->{	
@@ -75,21 +87,28 @@ public class MainController {
     		long timeStarted = System.currentTimeMillis();
     		lblProgress.setVisible(true);
     		progressBar.setVisible(true);
-    		
     		progressBar.setProgress(0.05F);
     		
     		JsonArray result = ReadFile(txtCSVFile.getText());
-    		
+    		long timeRead = System.currentTimeMillis();
     		progressBar.setProgress(0.33F);
     		
     		if (result == null) { Clean(); return; }
     		
     		String jsonContent = ConvertFile(result);
 			progressBar.setProgress(0.66F);
-    		
-			if (!SaveFile(jsonContent, txtExitFolder.getText() + "//file.json")) { Clean(); return; }
+    		long timeConvert = System.currentTimeMillis();
 			
+			
+			if (!SaveFile(jsonContent, txtExitFolder.getText() + "//file.json")) { Clean(); return; }
+			progressBar.setProgress(1F);
 			long timeFinish = System.currentTimeMillis();
+			
+			lblTotal.setText("Tempo Total: " + (timeFinish - timeStarted));
+			lblSave.setText("Tempo Gravação: " + (timeFinish - timeConvert));
+			lblConvert.setText("Tempo Converção: " + (timeConvert - timeRead));
+			lblRead.setText("Tempo Leitura: " + (timeRead - timeStarted) );
+			
 			progressBar.setProgress(1F);
 			Alert sucess = new Alert(Alert.AlertType.CONFIRMATION);
 			sucess.setHeaderText("Sucesso");

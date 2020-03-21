@@ -52,6 +52,10 @@
                   <Font size="11.0" />
                </font>
             </Label>
+            <Label fx:id="lblRead" layoutX="39.0" layoutY="254.0" text="Tempo Leitura:" textFill="#7a80ff" />
+            <Label fx:id="lblConvert" layoutX="39.0" layoutY="284.0" text="Tempo Converção:" textFill="#7a80ff" />
+            <Label fx:id="lblSave" layoutX="39.0" layoutY="317.0" text="Tempo Gravação:" textFill="#7a80ff" />
+            <Label fx:id="lblTotal" layoutX="39.0" layoutY="349.0" text="Tempo Total:" textFill="#7a80ff" />
          </children>
       </Pane>
    </children>
