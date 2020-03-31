@@ -1,6 +1,8 @@
 package com.paitax;
 
 import java.io.BufferedReader;
+import java.util.ArrayList;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,16 +10,27 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.paitax.model.ControlQueue;
+import com.paitax.model.Parser;
+import com.paitax.model.Writer;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -71,9 +84,16 @@ public class MainController {
     
     @FXML
     private Label lblTotal;
+    
+    private ExecutorService pool; 
+    
+    private static final int quantidadeCpu = Runtime.getRuntime().availableProcessors();
 
     @FXML
     void initialize() {
+    	
+    	progressBar.setProgress(0);		
+		pool = Executors.newFixedThreadPool(quantidadeCpu);
     	
     	btnCSVFile.setOnMouseClicked((MouseEvent e)->{	
 			txtCSVFile.setText(FileSearch());
@@ -84,11 +104,25 @@ public class MainController {
 		});
     	
     	btnConvert.setOnMouseClicked((MouseEvent e)->{	
-    		long timeStarted = System.currentTimeMillis();
+    		// long timeStarted = System.currentTimeMillis();
     		lblProgress.setVisible(true);
     		progressBar.setVisible(true);
-    		progressBar.setProgress(0.05F);
+    		progressBar.setProgress(0);
+    		// progressBar.setProgress(0.05F);
     		
+    		File file = new File(txtCSVFile.getText());
+    		
+    		if(file.exists() && !txtCSVFile.getText().equals("")) {
+    			startConversion();
+    		}
+    		else {
+    			Alert error = new Alert(Alert.AlertType.ERROR);
+                error.setHeaderText("Erro");
+        		error.setContentText("Arquivo não encontrado!");
+        		error.showAndWait();
+    		}
+    		
+    		/*
     		JsonArray result = ReadFile(txtCSVFile.getText());
     		long timeRead = System.currentTimeMillis();
     		progressBar.setProgress(0.33F);
@@ -114,10 +148,30 @@ public class MainController {
 			sucess.setHeaderText("Sucesso");
 			sucess.setContentText("Arquivo convertido com sucesso!");
 			sucess.showAndWait();
-    		
+    		*/
     		Clean();
 		});
 
+    }
+    
+    private void startConversion() {
+    	Reader reader;
+    	
+    	try {
+    		reader = Files.newBufferedReader(Paths.get(txtCSVFile.getText()));
+    		
+    		CSVReader csvReader = new CSVReaderBuilder(reader).withSkipLines(1).build();
+    		
+    		List<String[]> lines = csvReader.readAll();
+    	    progressBar.setProgress(-1);
+    	    
+    	    pool.execute(new ControlQueue(lines, progressBar));
+    	    pool.execute(new Parser());
+    	    pool.execute(new Writer(new FileWriter(txtExitFolder.getText() + "\\saida.json")));
+    		
+    	} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     
     public void Clean() {
