@@ -86,13 +86,9 @@ public class ControlQueue implements Runnable {
 		}	
 	}
 	
-	private String getData() {
-		return new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss.SSS z").format(new Date(System.currentTimeMillis()));
-	}
-	
 	@SuppressWarnings("static-access")
 	private void receivesData() {
-		System.out.println("Start Read" + getData());
+		System.out.println("Start Read " + System.currentTimeMillis());
 		int qtdeTotalRegistro = fileString.size();
 		int qtdeRegistros = 0;
 		do {
@@ -100,7 +96,7 @@ public class ControlQueue implements Runnable {
 			qtdeRegistros++;
 		}while(qtdeRegistros < qtdeTotalRegistro );
 		finishRead = false;
-		System.out.println("Finish Read" + getData());
+		System.out.println("Finish Read " +System.currentTimeMillis());
 	}
 	
 	@Override

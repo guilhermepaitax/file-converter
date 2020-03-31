@@ -9,7 +9,7 @@ public class Parser implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("Start conversion" + getData());
+		System.out.println("Start conversion " + System.currentTimeMillis());
 		do {
 
 			String[] task = ControlQueue.getTask();
@@ -23,7 +23,7 @@ public class Parser implements Runnable {
 
 		} while (ControlQueue.isTerminated());
 		ControlQueue.setFinishParse(false);
-		System.out.println("Finish conversion" + getData());
+		System.out.println("Finish conversion " + System.currentTimeMillis());
 	}
 	
 	private void setFields(String[] campos, JsonModel json) {
@@ -52,10 +52,6 @@ public class Parser implements Runnable {
 		json.setKilograms(Double.parseDouble(campos[22]));
 		json.setCentimeters(Integer.parseInt(campos[23]));
 		json.setGUID(campos[24]);
-	}
-	
-	private String getData() {
-		return new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss.SSS z").format(new Date(System.currentTimeMillis()));
 	}
 	
 }

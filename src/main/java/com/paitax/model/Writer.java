@@ -12,14 +12,10 @@ public class Writer implements Runnable {
 	  this.writeFile = wf;
 	}
 	
-	private String getData() {
-		return new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss.SSS z").format(new Date(System.currentTimeMillis()));
-	}
-	
 	@Override
 	public void run() {
 
-		System.out.println("Start write" + getData());
+		System.out.println("Start write " + System.currentTimeMillis());
 		do {
 
 			String task = ControlQueue.getTaskWriter();
@@ -40,7 +36,7 @@ public class Writer implements Runnable {
 		}
 		
 		ControlQueue.setFinishAll();
-		System.out.println("Finish write" + getData());
+		System.out.println("Finish write " + System.currentTimeMillis());
 	}
 	
 }

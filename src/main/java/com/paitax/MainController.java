@@ -105,7 +105,7 @@ public class MainController {
     	
     	btnConvert.setOnMouseClicked((MouseEvent e)->{	
     		// long timeStarted = System.currentTimeMillis();
-    		lblProgress.setVisible(true);
+    		// lblProgress.setVisible(true);
     		progressBar.setVisible(true);
     		progressBar.setProgress(0);
     		// progressBar.setProgress(0.05F);
@@ -149,7 +149,7 @@ public class MainController {
 			sucess.setContentText("Arquivo convertido com sucesso!");
 			sucess.showAndWait();
     		*/
-    		Clean();
+    		// Clean();
 		});
 
     }
