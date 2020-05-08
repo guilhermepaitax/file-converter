@@ -29,8 +29,6 @@ import com.google.gson.JsonObject;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.paitax.model.ControlQueue;
-import com.paitax.model.Parser;
-import com.paitax.model.Writer;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -42,6 +40,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import server.models.Parser;
+import server.models.Writer;
 import javafx.stage.Stage;
 
 public class MainController {
