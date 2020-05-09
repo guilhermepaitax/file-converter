@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.google.gson.Gson;
-import com.paitax.model.ControlQueue;
 
 public class Parser implements Runnable {
 

@@ -9,7 +9,7 @@ import java.net.Socket;
 
 import javafx.concurrent.Task;
 import javafx.scene.control.ProgressBar;
-import servidor.models.Feedback;
+//import servidor.models.Feedback;
 
 public class ServerConnection {
 	public void Connect(String host, int port, String csvFilePath, String saveFolderPath, ProgressBar progressBarFilaLeitura) {
@@ -29,7 +29,7 @@ public class ServerConnection {
 					printStream.println(csvFilePath + ";" + saveFolderPath);
 
 					InputStream input = client.getInputStream();
-					Feedback feedback = null;
+					// Feedback feedback = null;
 					while (!client.isClosed()) {
 						if (input.available() > 0) {
 							byte[] arrBytes = new byte[3000];
@@ -39,11 +39,11 @@ public class ServerConnection {
 							ObjectInputStream ois = new ObjectInputStream(bis);
 
 							Object obj = ois.readObject();
-							feedback = (Feedback) obj;							
+							// feedback = (Feedback) obj;							
 							
-							System.out.println(feedback.toString());
+							// System.out.println(feedback.toString());
 							
-							updateProgress(feedback.getPbarLeituraValor(), 1F);																				
+							// updateProgress(feedback.getPbarLeituraValor(), 1F);																				
 						}
 					}
 					

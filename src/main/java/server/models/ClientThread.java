@@ -3,7 +3,7 @@ package server.models;
 import java.net.Socket;
 import java.nio.file.Path;
 
-import server.controller.ParserController;
+import server.controller.ConversionController;
 
 public class ClientThread implements Runnable {
 	private Socket client;
@@ -18,6 +18,6 @@ public class ClientThread implements Runnable {
 	
 	@Override
 	public void run() {		
-		new ParserController(this.client).realizarOperacoes(this.csvFilePath, this.saveFolderPath);
+		new ConversionController(this.client).startConversion(this.csvFilePath, this.saveFolderPath);
 	}
 }

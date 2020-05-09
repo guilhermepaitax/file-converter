@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.paitax.model.ControlQueue;
-
 public class Writer implements Runnable {
 
 	FileWriter writeFile;

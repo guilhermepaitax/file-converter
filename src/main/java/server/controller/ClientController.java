@@ -25,11 +25,11 @@ public class ClientController implements Runnable {
 				input = client.getInputStream();
 
 				Scanner scanner = new Scanner(input);
-				String caminho = scanner.nextLine();
-				String[] caminhos = caminho.split(";");
+				String filesPaths = scanner.nextLine();
+				String[] paths = filesPaths.split(";");
 
-				Path csvFilePath = Paths.get(caminhos[0]);
-				Path saveFolderPath = Paths.get(caminhos[1]);
+				Path csvFilePath = Paths.get(paths[0]);
+				Path saveFolderPath = Paths.get(paths[1]);
 				
 				Thread threadClient = new Thread(new ClientThread(client, csvFilePath, saveFolderPath));
 				threadClient.start();
