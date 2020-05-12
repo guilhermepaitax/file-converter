@@ -24,7 +24,7 @@ public class ControlQueue implements Runnable {
 	public static void setFinishAll() {
 		Platform.runLater(new Runnable() {
             @Override public void run() {
-            	progressBar.setProgress(100);	
+            	// progressBar.setProgress(100);	
             }
         });
 	}
